@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'horario.dart';
+
 class Tela_Principal extends StatelessWidget {
   const Tela_Principal({super.key});
 
@@ -16,11 +18,17 @@ class Tela_Principal extends StatelessWidget {
           children: [
             Center(
               child: Container(
-                width: 300,
+                width: 340,
                 child: Material(
                   color: Colors.transparent,
                     child: TextField(
                   decoration: InputDecoration(
+                      label: Row(
+                        children: [
+                          Icon(Icons.search),
+                          Text('pesquisar local'),
+                        ],
+                      ),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(width: 3),
                           borderRadius: BorderRadius.circular(15))),
@@ -39,21 +47,21 @@ class Tela_Principal extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 60, left: 10, top: 20),
-                  child: Text(
-                    '11:53:34',
-                    style: TextStyle(
-                        fontSize: 20, decoration: TextDecoration.none),
-                  ),
+                  child: horario(),
                 ),
               ],
             ),
-            Text(
-              'Emoji',
-              style: TextStyle(fontSize: 60, decoration: TextDecoration.none),
+            Center(
+              child: Text(
+                'Emoji',
+                style: TextStyle(fontSize: 60, decoration: TextDecoration.none),
+              ),
             ),
-            Text(
-              '25°C',
-              style: TextStyle(fontSize: 100, decoration: TextDecoration.none),
+            Center(
+              child: Text(
+                '25°C',
+                style: TextStyle(fontSize: 100, decoration: TextDecoration.none),
+              ),
             ),
             Center(
                 child: Text(
