@@ -1,3 +1,4 @@
+import 'package:app_clima_oficial/responsividade.dart';
 import 'package:flutter/material.dart';
 import 'Cor_horario.dart';
 import 'escutar.dart';
@@ -25,7 +26,7 @@ class Tela_Principal extends StatelessWidget {
           children: [
             Center(
               child: Container(
-                width: 340,
+                width: ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.width, valor: 340),//340
                 child: Material(
                   color: Colors.transparent,
                     child: TextField(
