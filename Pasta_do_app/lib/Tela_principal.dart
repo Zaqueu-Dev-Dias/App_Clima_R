@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
-
+import 'Cor_horario.dart';
+import 'escutar.dart';
 import 'horario.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class Tela_Principal extends StatelessWidget {
-  const Tela_Principal({super.key});
+  var dados;
+  void Function(String?) func_atualizar;
+  TextEditingController dados_input = TextEditingController();
+  Tela_Principal({super.key, required this.dados, required this.func_atualizar});
 
   @override
   Widget build(BuildContext context) {
+    print(dados);
     return Stack(
       children: [
+        escutar(func_atualizar, dados['location']['localtime'].substring(11,13)),
         Container(
-          color: Colors.blue,
+          decoration: cor_horario(dados['location']['localtime'].substring(11,13))[0],
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -22,15 +29,24 @@ class Tela_Principal extends StatelessWidget {
                 child: Material(
                   color: Colors.transparent,
                     child: TextField(
+                      style: TextStyle(color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
+                      controller: dados_input,
+                  textInputAction: TextInputAction.go,
+                  onSubmitted: (texto){
+                    if (dados_input.text == '') {
+                    } else {
+                      func_atualizar(dados_input.text);
+                    }
+                  },
                   decoration: InputDecoration(
                       label: Row(
                         children: [
-                          Icon(Icons.search),
-                          Text('pesquisar local'),
+                          Icon(Icons.search, color: cor_horario(dados['location']['localtime'].substring(11,13))[1],),
+                          Text(' pesquisar local', style: TextStyle(color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),),
                         ],
                       ),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(width: 3),
+                        borderSide: BorderSide(width: 3, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
                           borderRadius: BorderRadius.circular(15))),
                 )),
               ),
@@ -40,33 +56,33 @@ class Tela_Principal extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 60, right: 10, top: 20),
                   child: Text(
-                    '26/04/2025',
+                    '${dados['location']['localtime'].substring(8,10)}/${dados['location']['localtime'].substring(5,7)}/${dados['location']['localtime'].substring(0,4)}',
                     style: TextStyle(
-                        fontSize: 20, decoration: TextDecoration.none),
+                        fontSize: 20, decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 60, left: 10, top: 20),
-                  child: horario(),
+                  child: horario(dados['location']['localtime']),
                 ),
               ],
             ),
             Center(
-              child: Text(
-                'Emoji',
-                style: TextStyle(fontSize: 60, decoration: TextDecoration.none),
+              child: Image.network('http:${dados['current']['condition']['icon']}').
+                animate(onPlay: (controle){controle.repeat();}).
+                  moveX(end: 15, begin: -25, curve: Curves.easeInOut, duration: 5000.ms)
+                  .then()
+                  .moveX(end: -25, begin: 15, curve: Curves.easeInOut),
+            )
+            ,
+            Center(
+              child: Text('${dados['current']['temp_c']}'.split('.')[0]+'°C',
+                style: TextStyle(fontSize: 100, decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
               ),
             ),
             Center(
-              child: Text(
-                '25°C',
-                style: TextStyle(fontSize: 100, decoration: TextDecoration.none),
-              ),
-            ),
-            Center(
-                child: Text(
-              'Guarulhos',
-              style: TextStyle(fontSize: 20, decoration: TextDecoration.none),
+                child: Text('${dados['location']['name']}',
+              style: TextStyle(fontSize: 20, decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
             )),
             Padding(
               padding: const EdgeInsets.only(top: 25),
@@ -75,34 +91,39 @@ class Tela_Principal extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Humidade:',
+                    child: Text('Humidade: ${dados['current']['humidity']}%',
                       style: TextStyle(
-                          fontSize: 20, decoration: TextDecoration.none),
+                          fontSize: 20, decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('Vento: ${dados['current']['wind_kph']}'.split('.')[0]+'Km/h',
+                      style: TextStyle(
+                          fontSize: 20, decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('Tempo: ${dados['current']['condition']['text']}',
+                      style: TextStyle(
+                          fontSize: 20, decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      'Vento:',
+                      'País: ${dados['location']['country']}',
                       style: TextStyle(
-                          fontSize: 20, decoration: TextDecoration.none),
+                          fontSize: 20, decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      'Céu:',
+                      'Continente: ${dados['location']['tz_id']}'.split('/')[0],
                       style: TextStyle(
-                          fontSize: 20, decoration: TextDecoration.none),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Continente:',
-                      style: TextStyle(
-                          fontSize: 20, decoration: TextDecoration.none),
+                          fontSize: 20, decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
                     ),
                   ),
                 ],
