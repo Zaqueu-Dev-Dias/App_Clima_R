@@ -13,6 +13,8 @@ class Tela_Principal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('TAMANHO LARGURA ${MediaQuery.of(context).size.width}');
+    print('TAMANHO ALTURA: ${MediaQuery.of(context).size.height}');
     print(dados);
     return Stack(
       children: [
@@ -54,16 +56,22 @@ class Tela_Principal extends StatelessWidget {
             ),
             Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 60, right: 10, top: 20),
+                Padding(                               //60      //10      //20
+                  padding: EdgeInsets.only(
+                      left: ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.width, valor: 60),
+                      right: ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.width, valor: 10),
+                      top: ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.height, valor: 20)),
                   child: Text(
                     '${dados['location']['localtime'].substring(8,10)}/${dados['location']['localtime'].substring(5,7)}/${dados['location']['localtime'].substring(0,4)}',
                     style: TextStyle(
-                        fontSize: 20, decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
+                        fontSize: ResponsividadeC.reponsividadeL(larguraX: MediaQuery.of(context).size.width, alturaX: MediaQuery.of(context).size.height, tamanhofixo: 20) , decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 60, left: 10, top: 20),
+                Padding(                               //60       //10     //20
+                  padding:  EdgeInsets.only(
+                      right: ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.width, valor: 60),
+                      left: ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.width, valor: 10),
+                      top: ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.height, valor: 20)),
                   child: horario(dados['location']['localtime']),
                 ),
               ],
@@ -78,53 +86,73 @@ class Tela_Principal extends StatelessWidget {
             ,
             Center(
               child: Text('${dados['current']['temp_c']}'.split('.')[0]+'°C',
-                style: TextStyle(fontSize: 100, decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
+                style: TextStyle(fontSize: ResponsividadeC.reponsividadeL(larguraX: MediaQuery.of(context).size.width, alturaX: MediaQuery.of(context).size.height, tamanhofixo: 100) , decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
               ),
             ),
             Center(
                 child: Text('${dados['location']['name']}',
-              style: TextStyle(fontSize: 20, decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
+              style: TextStyle(fontSize: ResponsividadeC.reponsividadeL(larguraX: MediaQuery.of(context).size.width, alturaX: MediaQuery.of(context).size.height, tamanhofixo: 20), decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
             )),
             Padding(
-              padding: const EdgeInsets.only(top: 25),
+              padding: EdgeInsets.only(top: ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.height, valor: 25)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.only(
+                        left: ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.width, valor: 8.0),
+                        top: ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.height, valor: 8.0),
+                        right:  ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.width, valor: 8.0),
+                        bottom: ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.height, valor: 8.0)),
                     child: Text('Humidade: ${dados['current']['humidity']}%',
                       style: TextStyle(
-                          fontSize: 20, decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
+                          fontSize: ResponsividadeC.reponsividadeL(larguraX: MediaQuery.of(context).size.width, alturaX: MediaQuery.of(context).size.height, tamanhofixo: 20), decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding:  EdgeInsets.only(
+                        left: ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.width, valor: 8.0),
+                        top: ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.height, valor: 8.0),
+                        right:  ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.width, valor: 8.0),
+                        bottom: ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.height, valor: 8.0)),
                     child: Text('Vento: ${dados['current']['wind_kph']}'.split('.')[0]+'Km/h',
                       style: TextStyle(
-                          fontSize: 20, decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
+                          fontSize: ResponsividadeC.reponsividadeL(larguraX: MediaQuery.of(context).size.width, alturaX: MediaQuery.of(context).size.height, tamanhofixo: 20), decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding:  EdgeInsets.only(
+                        left: ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.width, valor: 8.0),
+                        top: ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.height, valor: 8.0),
+                        right:  ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.width, valor: 8.0),
+                        bottom: ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.height, valor: 8.0)),
                     child: Text('Tempo: ${dados['current']['condition']['text']}',
                       style: TextStyle(
-                          fontSize: 20, decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
+                          fontSize: ResponsividadeC.reponsividadeL(larguraX: MediaQuery.of(context).size.width, alturaX: MediaQuery.of(context).size.height, tamanhofixo: 20), decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.only(
+                        left: ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.width, valor: 8.0),
+                        top: ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.height, valor: 8.0),
+                        right:  ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.width, valor: 8.0),
+                        bottom: ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.height, valor: 8.0)),
                     child: Text(
                       'País: ${dados['location']['country']}',
                       style: TextStyle(
-                          fontSize: 20, decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
+                          fontSize: ResponsividadeC.reponsividadeL(larguraX: MediaQuery.of(context).size.width, alturaX: MediaQuery.of(context).size.height, tamanhofixo: 20), decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.only(
+                        left: ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.width, valor: 8.0),
+                        top: ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.height, valor: 8.0),
+                        right:  ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.width, valor: 8.0),
+                        bottom: ResponsividadeC.resposividade(tela: MediaQuery.of(context).size.height, valor: 8.0)),
                     child: Text(
                       'Continente: ${dados['location']['tz_id']}'.split('/')[0],
                       style: TextStyle(
-                          fontSize: 20, decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
+                          fontSize: ResponsividadeC.reponsividadeL(larguraX: MediaQuery.of(context).size.width, alturaX: MediaQuery.of(context).size.height, tamanhofixo: 20), decoration: TextDecoration.none, color: cor_horario(dados['location']['localtime'].substring(11,13))[1]),
                     ),
                   ),
                 ],

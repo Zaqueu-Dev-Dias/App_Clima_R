@@ -1,3 +1,4 @@
+import 'package:app_clima_oficial/responsividade.dart';
 import 'package:flutter/material.dart';
 
 import 'Cor_horario.dart';
@@ -23,7 +24,7 @@ StreamBuilder horario(String horar){
         return Text(
           '${hora}:${minuto}:${segundos}',
           style: TextStyle(
-              fontSize: 20,
+              fontSize: ResponsividadeC.reponsividadeL(larguraX: MediaQuery.of(contexto).size.width, alturaX: MediaQuery.of(contexto).size.height, tamanhofixo: 20),
               decoration: TextDecoration.none,
               color: cor_horario(horar.substring(11,13))[1]),
         );
